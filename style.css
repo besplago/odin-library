@@ -98,7 +98,12 @@ h6 {
   --button-font-size: 0.8em;
 
   --logo-icon-size: 3rem;
+
   --username-font-size: 2rem;
+
+  --profile-picture-size: 7rem;
+  --profile-picture-border-color: white;
+  --profile-picture-border-size: 0.2rem;
 }
 
 h1 {
@@ -157,11 +162,33 @@ p {
   justify-content: space-between;
 }
 
+#profile {
+  display: flex;
+  gap: var(--spacing-s);
+}
+
+#profile-picture {
+  width: var(--profile-picture-size);
+  height: var(--profile-picture-size);
+  border: solid var(--profile-picture-border-color)
+    var(--profile-picture-border-size);
+  border-radius: 100%;
+}
+
+#user-info {
+  align-self: flex-end;
+}
+
 #user-name {
   font-family: var(--font-username);
   font-size: var(--username-font-size);
 }
 
-#stats > p {
+#user-stats {
+  display: flex;
+  gap: var(--spacing-m);
+}
+
+#user-stats > p {
   color: var(--color-user-stats);
 }
