@@ -73,33 +73,59 @@ h6 {
 @import url(https://db.onlinewebfonts.com/c/3d81921f1fdc36b2465117c4acbc3fbd?family=Syncopate+Bold);
 @import url(https://db.onlinewebfonts.com/c/c79f8e8cdb2b980de775efd43a34b6a9?family=Artega);
 
+:root {
+  --color-text-primary: #4a4958;
+  --color-bg-light: #ebebef;
+  --color-accent: #fd8c57;
+  --color-gradient-overlay: rgba(0, 0, 0, 0.2);
+  --color-button-text: #ffffff;
+
+  --font-heading: 'Artega';
+  --font-body: 'Roboto', sans-serif;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 3rem;
+  --spacing-xl: 4rem;
+
+  --button-width: 175px;
+  --button-height: 40px;
+  --button-radius: 25px;
+  --button-font-size: 0.8rem;
+
+  --logo-icon-size: 45px;
+}
+
 h1 {
-  font-family: 'Artega';
-  color: #4a4958;
+  font-family: var(--font-heading);
+  color: var(--color-text-primary);
 }
 
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: var(--spacing-md);
   height: 100vh;
-  padding: 3rem;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.2)), #ebebef;
+  padding: var(--spacing-lg);
+  background: linear-gradient(transparent, var(--color-gradient-overlay)),
+    var(--color-bg-light);
 }
 
 button {
-  width: 175px;
-  height: 40px;
+  width: var(--button-width);
+  height: var(--button-height);
   border: none;
-  border-radius: 25px;
-  font-family: 'Roboto';
-  font-size: 0.8rem;
-  color: white;
+  border-radius: var(--button-radius);
+  font-family: var(--font-body);
+  font-size: var(--button-font-size);
+  color: var(--color-button-text);
 }
 
 #new-book {
-  background: #fd8c57 linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2));
+  background: var(--color-accent)
+    linear-gradient(90deg, transparent, var(--color-gradient-overlay));
   align-self: flex-end;
 }
 
@@ -107,14 +133,14 @@ button {
   justify-self: center;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 4rem;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
 }
 
 #logo-icon {
-  width: 45px;
-  height: 45px;
-  fill: #4a4958;
+  width: var(--logo-icon-size);
+  height: var(--logo-icon-size);
+  fill: var(--color-text-primary);
 }
 
 #top-row {
