@@ -101,3 +101,9 @@ body {
   height: 45px;
   fill: #4a4958;
 }
+
+#top-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
