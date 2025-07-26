@@ -79,9 +79,12 @@ h6 {
   --color-accent: #fd8c57;
   --color-gradient-overlay: rgba(0, 0, 0, 0.2);
   --color-button-text: #ffffff;
+  --color-user-stats: #bbbac5;
 
   --font-heading: 'Artega';
   --font-body: 'Roboto', sans-serif;
+  --font-username: 'Syncopate Bold';
+  --font-small-text: 'SeedDemBol W00 Regular';
 
   --spacing-xs: 0.5rem;
   --spacing-s: 1rem;
@@ -95,6 +98,7 @@ h6 {
   --button-font-size: 0.8rem;
 
   --logo-icon-size: 45px;
+  --username-font-size: 2rem;
 }
 
 h1 {
@@ -123,6 +127,10 @@ button {
   color: var(--color-button-text);
 }
 
+p {
+  font-family: var(--font-small-text);
+}
+
 #new-book {
   background: var(--color-accent)
     linear-gradient(90deg, transparent, var(--color-gradient-overlay));
@@ -147,4 +155,13 @@ button {
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+
+#user-name {
+  font-family: var(--font-username);
+  font-size: var(--username-font-size);
+}
+
+#stats > p {
+  color: var(--color-user-stats);
 }
