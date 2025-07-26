@@ -74,7 +74,7 @@ h6 {
 @import url(https://db.onlinewebfonts.com/c/c79f8e8cdb2b980de775efd43a34b6a9?family=Artega);
 
 :root {
-  --color-text-primary: #4a4958;
+  --color-logo: #4a4958;
   --color-bg-light: #ebebef;
   --color-accent: #fd8c57;
   --color-gradient-overlay: rgba(0, 0, 0, 0.2);
@@ -84,9 +84,9 @@ h6 {
   --font-body: 'Roboto', sans-serif;
 
   --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 3rem;
+  --spacing-s: 1rem;
+  --spacing-m: 2rem;
+  --spacing-l: 3rem;
   --spacing-xl: 4rem;
 
   --button-width: 175px;
@@ -99,16 +99,16 @@ h6 {
 
 h1 {
   font-family: var(--font-heading);
-  color: var(--color-text-primary);
+  color: var(--color-logo);
 }
 
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-m);
   height: 100vh;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-l);
   background: linear-gradient(transparent, var(--color-gradient-overlay)),
     var(--color-bg-light);
 }
@@ -133,14 +133,14 @@ button {
   justify-self: center;
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-s);
   margin-bottom: var(--spacing-xl);
 }
 
 #logo-icon {
   width: var(--logo-icon-size);
   height: var(--logo-icon-size);
-  fill: var(--color-text-primary);
+  fill: var(--color-logo);
 }
 
 #top-row {
