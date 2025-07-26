@@ -88,6 +88,21 @@ body {
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.2)), #ebebef;
 }
 
+button {
+  width: 175px;
+  height: 40px;
+  border: none;
+  border-radius: 25px;
+  font-family: 'Roboto';
+  font-size: 0.8rem;
+  color: white;
+}
+
+#new-book {
+  background: #fd8c57 linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2));
+  align-self: flex-end;
+}
+
 #logo {
   justify-self: center;
   display: flex;
