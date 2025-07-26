@@ -79,8 +79,9 @@ h1 {
 }
 
 body {
+  height: 100vh;
   padding: 3rem;
-  background-color: #ebebef;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.2)), #ebebef;
 }
 
 #logo {
