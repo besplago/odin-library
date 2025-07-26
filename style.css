@@ -1,3 +1,85 @@
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+/* My css */
+
 @import url(https://db.onlinewebfonts.com/c/2b3c8daea8f099473705414810697e44?family=SeedDemBol+W00+Regular);
 @import url(https://db.onlinewebfonts.com/c/3d81921f1fdc36b2465117c4acbc3fbd?family=Syncopate+Bold);
 @import url(https://db.onlinewebfonts.com/c/c79f8e8cdb2b980de775efd43a34b6a9?family=Artega);
+
+#logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#logo-icon {
+  width: 37px;
+  height: 37px;
+}
