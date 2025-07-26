@@ -73,7 +73,18 @@ h6 {
 @import url(https://db.onlinewebfonts.com/c/3d81921f1fdc36b2465117c4acbc3fbd?family=Syncopate+Bold);
 @import url(https://db.onlinewebfonts.com/c/c79f8e8cdb2b980de775efd43a34b6a9?family=Artega);
 
+h1 {
+  font-family: 'Artega';
+  color: #4a4958;
+}
+
+body {
+  padding: 3rem;
+  background-color: #ebebef;
+}
+
 #logo {
+  justify-self: center;
   display: flex;
   align-items: center;
   gap: 1rem;
