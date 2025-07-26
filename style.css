@@ -92,12 +92,12 @@ h6 {
   --spacing-l: 3rem;
   --spacing-xl: 4rem;
 
-  --button-width: 175px;
-  --button-height: 40px;
+  --button-width: 11rem;
+  --button-height: 2.5rem;
   --button-radius: 25px;
   --button-font-size: 0.8rem;
 
-  --logo-icon-size: 45px;
+  --logo-icon-size: 3rem;
   --username-font-size: 2rem;
 }
 
