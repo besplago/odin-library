@@ -113,20 +113,18 @@ function displayBooks (library) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  addBookToLibrary(myLibrary, 'Three Body Problem', 'Cixin Liu', 290, true)
-  addBookToLibrary(myLibrary, 'Dune', 'Frank Herbert', 412, true)
-  addBookToLibrary(myLibrary, 'The Hobbit', 'J.R.R. Tolkien', 310, false)
-  addBookToLibrary(myLibrary, 'Project Hail Mary', 'Andy Weir', 476, true)
-  addBookToLibrary(
-    myLibrary,
-    'The Left Hand of Darkness',
-    'Ursula K. Le Guin',
-    304,
-    true
-  )
-  addBookToLibrary(myLibrary, 'Neuromancer', 'William Gibson', 271, false)
+addBookToLibrary(myLibrary, 'Three Body Problem', 'Cixin Liu', 290, true)
+addBookToLibrary(myLibrary, 'Dune', 'Frank Herbert', 412, true)
+addBookToLibrary(myLibrary, 'The Hobbit', 'J.R.R. Tolkien', 310, false)
+addBookToLibrary(myLibrary, 'Project Hail Mary', 'Andy Weir', 476, true)
+addBookToLibrary(
+  myLibrary,
+  'The Left Hand of Darkness',
+  'Ursula K. Le Guin',
+  304,
+  true
+)
+addBookToLibrary(myLibrary, 'Neuromancer', 'William Gibson', 271, false)
 
-  displayBooks(myLibrary)
-  setupEventListeners(myLibrary)
-})
+displayBooks(myLibrary)
+setupEventListeners(myLibrary)
