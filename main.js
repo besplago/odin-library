@@ -155,7 +155,6 @@ function setupEventListeners (library) {
     const read = e.detail.read
     const newReadStatus = !read
     updateReadStatus(library, bookId, newReadStatus)
-    console.log(library)
   })
 }
 
