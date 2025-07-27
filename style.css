@@ -239,7 +239,7 @@ p {
   font-size: var(--font-size-s);
 }
 
-.card h4 {
+.card span {
   font-family: var(--font-body);
   font-size: var(--font-size-xs);
 }

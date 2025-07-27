@@ -74,18 +74,20 @@ function createBookCard (book) {
   const bookStats = document.createElement('div')
   bookStats.className = 'book-stats'
 
-  const pages = document.createElement('h4')
+  const pages = document.createElement('span')
   pages.textContent = `${book.pages} PAGES`
 
   const readStatus = document.createElement('div')
   readStatus.className = 'read-status'
 
   const label = document.createElement('label')
-  const labelText = document.createElement('h4')
+  label.htmlFor = `read-status-${book.id}`
+  const labelText = document.createElement('span')
   labelText.textContent = 'READ'
   label.appendChild(labelText)
 
   const checkbox = document.createElement('input')
+  checkbox.id = `read-status-${book.id}`
   checkbox.type = 'checkbox'
   checkbox.name = 'read-status'
   checkbox.checked = book.read
@@ -125,6 +127,7 @@ function setupEventListeners (library) {
     const read = e.detail.read
     const newReadStatus = !read
     updateReadStatus(library, bookId, newReadStatus)
+    console.log(library)
   })
 }
 
