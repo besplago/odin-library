@@ -112,6 +112,18 @@ function createBookCard (book) {
 }
 
 function setupEventListeners (library) {
+  const newBookButton = document.getElementById('new-book')
+  const dialog = document.querySelector('dialog')
+  const closeButton = document.querySelector('dialog button')
+
+  newBookButton.addEventListener('click', e => {
+    dialog.showModal()
+  })
+
+  closeButton.addEventListener('click', e => {
+    dialog.close()
+  })
+
   const cardGrid = document.getElementById('card-grid')
 
   cardGrid.addEventListener('removeBook', e => {
