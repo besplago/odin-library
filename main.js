@@ -113,20 +113,62 @@ function displayBooks (library) {
   })
 }
 
-addBookToLibrary(myLibrary, 'Three Body Problem', 'Cixin Liu', 290, true)
-addBookToLibrary(myLibrary, 'Dune', 'Frank Herbert', 412, true)
-addBookToLibrary(myLibrary, 'The Hobbit', 'J.R.R. Tolkien', 310, false)
-addBookToLibrary(myLibrary, 'Project Hail Mary', 'Andy Weir', 476, true)
 addBookToLibrary(
   myLibrary,
-  'The Left Hand of Darkness',
-  'Ursula K. Le Guin',
-  304,
+  'Vertical Leap for Dummies',
+  'Dr. Air Jordan',
+  290,
   true
 )
-addBookToLibrary(myLibrary, 'Neuromancer', 'William Gibson', 271, false)
-addBookToLibrary(myLibrary, 'Foundation', 'Isaac Asimov', 255, true)
-addBookToLibrary(myLibrary, 'Brave New World', 'Aldous Huxley', 311, false)
+addBookToLibrary(
+  myLibrary,
+  'Crying in My Championship Champagne',
+  'Michael "Air Soreness" Jordan',
+  412,
+  false
+)
+addBookToLibrary(
+  myLibrary,
+  'I Promise School Lunch Recipes',
+  'Chef LeBron',
+  310,
+  true
+)
+addBookToLibrary(
+  myLibrary,
+  'Space Jam 3: Revenge of the Monstars',
+  'Warner Bros. Ghostwriter',
+  476,
+  true
+)
+addBookToLibrary(
+  myLibrary,
+  'How to Dunk on Feelings: Emotional Alley-Oops',
+  'Dr. Phil Jackson',
+  304,
+  false
+)
+addBookToLibrary(
+  myLibrary,
+  'The Taco Tuesday Manifesto',
+  'Taco "Tuesday" James',
+  271,
+  true
+)
+addBookToLibrary(
+  myLibrary,
+  'Hairline Management for Champions',
+  'Dr. Transplant',
+  255,
+  true
+)
+addBookToLibrary(
+  myLibrary,
+  'The GOAT Debate: Why Bron > MJ',
+  'King James Press',
+  311,
+  true
+)
 
 displayBooks(myLibrary)
 setupEventListeners(myLibrary)
