@@ -10,19 +10,19 @@ class Book {
   }
 }
 
-function addBookToLibrary (title, author, pages, read) {
+function addBookToLibrary (library, title, author, pages, read) {
   const newBook = new Book(title, author, pages, read)
-  myLibrary.push(newBook)
+  library.push(newBook)
 }
 
-function removeBookFromLibrary (bookId) {
-  const index = myLibrary.findIndex(book => book.id === bookId)
+function removeBookFromLibrary (library, bookId) {
+  const index = library.findIndex(book => book.id === bookId)
   if (index !== -1) {
-    myLibrary.splice(index, 1)
+    library.splice(index, 1)
   }
 }
 
-function createBookCard (book) {
+function createBookCard (library, book) {
   const card = document.createElement('div')
   card.className = 'card'
 
@@ -55,7 +55,7 @@ function createBookCard (book) {
 
   svg.addEventListener('click', () => {
     card.remove()
-    removeBookFromLibrary(book.id)
+    removeBookFromLibrary(library, book.id) // Directly connects from svg to array, is there a cleaner more modular solution?
   })
 
   topRow.appendChild(textContainer)
@@ -94,15 +94,21 @@ function createBookCard (book) {
 function displayBooks (library) {
   const cardGrid = document.getElementById('card-grid')
   library.forEach(book => {
-    cardGrid.appendChild(createBookCard(book))
+    cardGrid.appendChild(createBookCard(library, book))
   })
 }
 
-addBookToLibrary('Three Body Problem', 'Cixin Liu', 290, true)
-addBookToLibrary('Dune', 'Frank Herbert', 412, true)
-addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 310, false)
-addBookToLibrary('Project Hail Mary', 'Andy Weir', 476, true)
-addBookToLibrary('The Left Hand of Darkness', 'Ursula K. Le Guin', 304, true)
-addBookToLibrary('Neuromancer', 'William Gibson', 271, false)
+addBookToLibrary(myLibrary, 'Three Body Problem', 'Cixin Liu', 290, true)
+addBookToLibrary(myLibrary, 'Dune', 'Frank Herbert', 412, true)
+addBookToLibrary(myLibrary, 'The Hobbit', 'J.R.R. Tolkien', 310, false)
+addBookToLibrary(myLibrary, 'Project Hail Mary', 'Andy Weir', 476, true)
+addBookToLibrary(
+  myLibrary,
+  'The Left Hand of Darkness',
+  'Ursula K. Le Guin',
+  304,
+  true
+)
+addBookToLibrary(myLibrary, 'Neuromancer', 'William Gibson', 271, false)
 
 displayBooks(myLibrary)
