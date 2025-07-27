@@ -254,6 +254,7 @@ p {
 }
 
 .remove-card-icon {
+  flex-shrink: 0;
   width: var(--remove-card-icon-size);
   height: var(--remove-card-icon-size);
   fill: var(--remove-card-icon-color);
