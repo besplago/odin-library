@@ -114,12 +114,28 @@ function createBookCard (book) {
 function setupEventListeners (library) {
   const newBookButton = document.getElementById('new-book')
   const dialog = document.querySelector('dialog')
-  const closeButton = document.querySelector('dialog button')
-  const outputBox = document.querySelector('output')
+  const closeDialogButton = document.querySelector('#modal-top-row svg')
+  const selectEl = dialog.querySelector('select')
   const confirmBtn = dialog.querySelector('#confirmBtn')
 
-  newBookButton.addEventListener('click', e => {
+  newBookButton.addEventListener('click', () => {
     dialog.showModal()
+  })
+
+  closeDialogButton.addEventListener('click', () => {
+    dialog.returnValue = 'cancel'
+    dialog.close()
+  })
+
+  dialog.addEventListener('close', () => {
+    console.log(dialog.returnValue)
+  })
+
+  // Prevent the "confirm" button from the default behavior of submitting the form, and close the
+  // dialog with the `close()` method, which triggers the "close" event.
+  confirmBtn.addEventListener('click', e => {
+    e.preventDefault() // We don't want to submit this fake form
+    dialog.close(selectEl.value) // Have to send the select box value here.
   })
 
   const cardGrid = document.getElementById('card-grid')

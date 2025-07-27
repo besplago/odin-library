@@ -292,6 +292,11 @@ dialog {
     var(--color-bg-light);
 }
 
+#modal-top-row {
+  display: flex;
+  justify-content: space-between;
+}
+
 ::backdrop {
   background: black;
   opacity: 0.6;
