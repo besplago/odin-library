@@ -22,7 +22,7 @@ function removeBookFromLibrary (library, bookId) {
   }
 }
 
-function createBookCard (library, book) {
+function createBookCard (book) {
   const card = document.createElement('div')
   card.className = 'card'
 
@@ -54,8 +54,11 @@ function createBookCard (library, book) {
   svg.appendChild(path)
 
   svg.addEventListener('click', () => {
-    card.remove()
-    removeBookFromLibrary(library, book.id) // Directly connects from svg to array, is there a cleaner more modular solution?
+    const removeEvent = new CustomEvent('removeBook', {
+      bubbles: true,
+      detail: { bookId: book.id }
+    })
+    card.dispatchEvent(removeEvent)
   })
 
   topRow.appendChild(textContainer)
@@ -91,24 +94,39 @@ function createBookCard (library, book) {
   return card
 }
 
-function displayBooks (library) {
+function setupEventListeners (library) {
   const cardGrid = document.getElementById('card-grid')
-  library.forEach(book => {
-    cardGrid.appendChild(createBookCard(library, book))
+
+  cardGrid.addEventListener('removeBook', e => {
+    const bookId = e.detail.bookId
+    removeBookFromLibrary(library, bookId)
+
+    const card = document.querySelector(`.card[data-id="${bookId}"]`)
+    if (card) card.remove()
   })
 }
 
-addBookToLibrary(myLibrary, 'Three Body Problem', 'Cixin Liu', 290, true)
-addBookToLibrary(myLibrary, 'Dune', 'Frank Herbert', 412, true)
-addBookToLibrary(myLibrary, 'The Hobbit', 'J.R.R. Tolkien', 310, false)
-addBookToLibrary(myLibrary, 'Project Hail Mary', 'Andy Weir', 476, true)
-addBookToLibrary(
-  myLibrary,
-  'The Left Hand of Darkness',
-  'Ursula K. Le Guin',
-  304,
-  true
-)
-addBookToLibrary(myLibrary, 'Neuromancer', 'William Gibson', 271, false)
+function displayBooks (library) {
+  const cardGrid = document.getElementById('card-grid')
+  library.forEach(book => {
+    cardGrid.appendChild(createBookCard(book))
+  })
+}
 
-displayBooks(myLibrary)
+document.addEventListener('DOMContentLoaded', () => {
+  addBookToLibrary(myLibrary, 'Three Body Problem', 'Cixin Liu', 290, true)
+  addBookToLibrary(myLibrary, 'Dune', 'Frank Herbert', 412, true)
+  addBookToLibrary(myLibrary, 'The Hobbit', 'J.R.R. Tolkien', 310, false)
+  addBookToLibrary(myLibrary, 'Project Hail Mary', 'Andy Weir', 476, true)
+  addBookToLibrary(
+    myLibrary,
+    'The Left Hand of Darkness',
+    'Ursula K. Le Guin',
+    304,
+    true
+  )
+  addBookToLibrary(myLibrary, 'Neuromancer', 'William Gibson', 271, false)
+
+  displayBooks(myLibrary)
+  setupEventListeners(myLibrary)
+})
