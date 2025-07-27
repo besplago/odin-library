@@ -112,6 +112,7 @@ function createBookCard (book) {
 }
 
 function setupEventListeners (library) {
+  // Dialog
   const newBookButton = document.getElementById('new-book')
   const dialog = document.querySelector('dialog')
   const closeDialogButton = document.querySelector('#modal-top-row svg')
@@ -138,6 +139,7 @@ function setupEventListeners (library) {
     dialog.close(selectEl.value) // Have to send the select box value here.
   })
 
+  // Cards
   const cardGrid = document.getElementById('card-grid')
 
   cardGrid.addEventListener('removeBook', e => {
