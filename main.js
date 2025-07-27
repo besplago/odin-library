@@ -15,7 +15,12 @@ function addBookToLibrary (title, author, pages, read) {
   myLibrary.push(newBook)
 }
 
-function removeBookFromLibrary (bookId) {}
+function removeBookFromLibrary (bookId) {
+  const index = myLibrary.findIndex(book => book.id === bookId)
+  if (index !== -1) {
+    myLibrary.splice(index, 1)
+  }
+}
 
 function createBookCard (book) {
   const card = document.createElement('div')
@@ -48,8 +53,10 @@ function createBookCard (book) {
 
   svg.appendChild(path)
 
-  svg.addEventListener('click', () => card.remove())
-  // Remove also from myLibrary
+  svg.addEventListener('click', () => {
+    card.remove()
+    removeBookFromLibrary(book.id)
+  })
 
   topRow.appendChild(textContainer)
   topRow.appendChild(svg)
@@ -97,7 +104,5 @@ addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 310, false)
 addBookToLibrary('Project Hail Mary', 'Andy Weir', 476, true)
 addBookToLibrary('The Left Hand of Darkness', 'Ursula K. Le Guin', 304, true)
 addBookToLibrary('Neuromancer', 'William Gibson', 271, false)
-
-console.log(myLibrary)
 
 displayBooks(myLibrary)
