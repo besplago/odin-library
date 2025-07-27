@@ -116,6 +116,7 @@ h6 {
   --card-max-height: 12rem;
   --remove-card-icon-size: 0.6rem;
   --remove-card-icon-color: white;
+  --remove-card-icon-color-hover: rgb(255, 28, 28);
 }
 
 h1 {
@@ -142,6 +143,11 @@ button {
   font-family: var(--font-body);
   font-size: var(--button-font-size);
   color: var(--color-button-text);
+}
+
+button:hover {
+  scale: 1.04;
+  opacity: 0.8;
 }
 
 p {
@@ -251,6 +257,12 @@ p {
   width: var(--remove-card-icon-size);
   height: var(--remove-card-icon-size);
   fill: var(--remove-card-icon-color);
+}
+
+.remove-card-icon:hover {
+  scale: 1.5;
+  opacity: 0.8;
+  fill: var(--remove-card-icon-color-hover);
 }
 
 .book-stats {
