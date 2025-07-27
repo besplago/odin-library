@@ -125,6 +125,8 @@ addBookToLibrary(
   true
 )
 addBookToLibrary(myLibrary, 'Neuromancer', 'William Gibson', 271, false)
+addBookToLibrary(myLibrary, 'Foundation', 'Isaac Asimov', 255, true)
+addBookToLibrary(myLibrary, 'Brave New World', 'Aldous Huxley', 311, false)
 
 displayBooks(myLibrary)
 setupEventListeners(myLibrary)
