@@ -22,6 +22,13 @@ function removeBookFromLibrary (library, bookId) {
   }
 }
 
+function updateReadStatus (library, bookId, readStatus) {
+  const book = library.find(book => book.id === bookId)
+  if (book) {
+    book.read = readStatus
+  }
+}
+
 function createBookCard (book) {
   const card = document.createElement('div')
   card.className = 'card'
@@ -81,6 +88,14 @@ function createBookCard (book) {
   const checkbox = document.createElement('input')
   checkbox.type = 'checkbox'
   checkbox.name = 'read-status'
+  checkbox.checked = book.read
+  checkbox.addEventListener('change', () => {
+    const removeEvent = new CustomEvent('updateReadStatus', {
+      bubbles: true,
+      detail: { bookId: book.id, read: book.read }
+    })
+    card.dispatchEvent(removeEvent)
+  })
 
   readStatus.appendChild(label)
   readStatus.appendChild(checkbox)
@@ -103,6 +118,13 @@ function setupEventListeners (library) {
 
     const card = document.querySelector(`.card[data-id="${bookId}"]`)
     if (card) card.remove()
+  })
+
+  cardGrid.addEventListener('updateReadStatus', e => {
+    const bookId = e.detail.bookId
+    const read = e.detail.read
+    const newReadStatus = !read
+    updateReadStatus(library, bookId, newReadStatus)
   })
 }
 
