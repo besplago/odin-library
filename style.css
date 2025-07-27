@@ -150,6 +150,18 @@ button:hover {
   opacity: 0.8;
 }
 
+.x-icon {
+  flex-shrink: 0;
+  width: var(--remove-card-icon-size);
+  height: var(--remove-card-icon-size);
+}
+
+.x-icon:hover {
+  scale: 1.5;
+  opacity: 0.8;
+  fill: var(--remove-card-icon-color-hover);
+}
+
 p {
   font-family: var(--font-small-text);
 }
@@ -254,16 +266,7 @@ p {
 }
 
 .remove-card-icon {
-  flex-shrink: 0;
-  width: var(--remove-card-icon-size);
-  height: var(--remove-card-icon-size);
   fill: var(--remove-card-icon-color);
-}
-
-.remove-card-icon:hover {
-  scale: 1.5;
-  opacity: 0.8;
-  fill: var(--remove-card-icon-color-hover);
 }
 
 .book-stats {
@@ -278,6 +281,15 @@ p {
 
 .read-status > input {
   border: none;
+}
+
+dialog {
+  justify-self: center;
+  align-self: center;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(transparent, var(--color-gradient-overlay)),
+    var(--color-bg-light);
 }
 
 ::backdrop {

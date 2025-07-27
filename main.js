@@ -48,7 +48,7 @@ function createBookCard (book) {
   textContainer.appendChild(author)
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  svg.classList.add('remove-card-icon')
+  svg.classList.add('x-icon', 'remove-card-icon')
   svg.setAttribute('viewBox', '0 0 16 16')
   svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
 
@@ -115,13 +115,11 @@ function setupEventListeners (library) {
   const newBookButton = document.getElementById('new-book')
   const dialog = document.querySelector('dialog')
   const closeButton = document.querySelector('dialog button')
+  const outputBox = document.querySelector('output')
+  const confirmBtn = dialog.querySelector('#confirmBtn')
 
   newBookButton.addEventListener('click', e => {
     dialog.showModal()
-  })
-
-  closeButton.addEventListener('click', e => {
-    dialog.close()
   })
 
   const cardGrid = document.getElementById('card-grid')
