@@ -51,6 +51,9 @@ function createBookCard (book) {
   svg.classList.add('icon', 'x-icon', 'remove-card-icon')
   svg.setAttribute('viewBox', '0 0 16 16')
   svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+  svg.setAttribute('role', 'button')
+  svg.setAttribute('aria-label', 'Remove book')
+  svg.setAttribute('tabindex', '0')
 
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
   path.setAttribute(
