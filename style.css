@@ -112,6 +112,8 @@ h6 {
   --spacing-xxxl: 4rem;
 
   /* Component Sizes */
+  --body-width-padding: 15rem;
+
   --button-width: 11rem;
   --button-height: 2.5rem;
   --button-radius: 1.5625rem;
@@ -152,7 +154,7 @@ body {
   align-items: center;
   gap: var(--spacing-xl);
   min-height: 100vh;
-  padding: var(--spacing-xxl);
+  padding: var(--spacing-xxl) var(--body-width-padding);
   background: linear-gradient(transparent, var(--color-gradient-overlay)),
     var(--color-bg-light);
 }
