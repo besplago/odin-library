@@ -116,8 +116,8 @@ function createBookCard (book) {
 
 function setupEventListeners (library) {
   // Dialog
-  const newBookButton = document.getElementById('new-book')
   const dialog = document.querySelector('dialog')
+  const newBookButton = document.getElementById('new-book')
   const closeDialogButton = document.querySelector('#modal-top-row button')
   const confirmBtn = dialog.querySelector('#confirm-button')
 
