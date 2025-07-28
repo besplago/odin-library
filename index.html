@@ -18,90 +18,76 @@
             rel="stylesheet">
     </head>
     <body>
-        <div id="logo">
-            <?xml version="1.0"
-            encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-            <svg id="logo-icon" viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+        <header id="logo">
+            <svg id="logo-icon" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg" role="img"
+                aria-label="Bibliotheca logo">
                 <path
                     d="M0 2H3.58579C4.49129 2 5.35971 2.35971 6 3C6.64029 3.64029 7 4.50871 7 5.41421V11H9V5.41421C9 4.50871 9.35971 3.64029 10 3C10.6403 2.35971 11.5087 2 12.4142 2H16V13H11L9 15H7L5 13H0V2Z" />
             </svg>
             <h1>BIBLIOTHECA</h1>
-        </div>
+        </header>
+
         <div id="top-row">
-            <div id="profile">
+            <section id="profile">
                 <img id="profile-picture"
                     src="./images/lebron-profile-picture.jpg"
-                    alt="my sunshine">
+                    alt="Profile picture of LeBron R. J.">
                 <div id="user-info">
                     <h2 id="user-name">LEBRON R. J.</h2>
                     <div id="user-stats">
-                        <p>0/0 Books</p>
-                        <p>0 Pages</p>
+                        <p><span id="books-read">0</span>/<span
+                                id="total-books">0</span> Books</p>
+                        <p><span id="total-pages">0</span> Pages</p>
                     </div>
                 </div>
-            </div>
-            <button id="new-book" type="button">
+            </section>
+            <button id="new-book" type="button" aria-label="Add new book">
                 NEW BOOK
             </button>
         </div>
-        <div id="card-grid">
-            <!-- <div class="card">
-                <div class="card-top-row">
-                    <div>
-                        <h3>THE THREE BODY PROBLEM</h3>
-                        <p>Cixin Liu</p>
-                    </div>
-                    <?xml version="1.0"
-                    encoding="utf-8"?>
-                    <svg class="remove-card-icon" viewBox="0 0 16 16"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M5.1716 8.00003L1.08582 3.91424L3.91424 1.08582L8.00003 5.1716L12.0858 1.08582L14.9142 3.91424L10.8285 8.00003L14.9142 12.0858L12.0858 14.9142L8.00003 10.8285L3.91424 14.9142L1.08582 12.0858L5.1716 8.00003Z" />
-                    </svg>
-                </div>
-                <div class="book-stats">
-                    <h4>390 PAGES</h4>
-                    <div class="read-status">
-                        <label for><h4>READ</h4></label>
-                        <input type="checkbox" name id>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-        <dialog id="new-book-dialog">
+
+        <main id="card-grid" role="main" aria-label="Book collection"></main>
+
+        <dialog id="new-book-dialog" aria-labelledby="modal-title">
             <form>
                 <div id="modal-top-row">
-                    <h1>NEW BOOK</h1>
-                    <svg class="x-icon exit-modal-icon" viewBox="0 0 16 16"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M5.1716 8.00003L1.08582 3.91424L3.91424 1.08582L8.00003 5.1716L12.0858 1.08582L14.9142 3.91424L10.8285 8.00003L14.9142 12.0858L12.0858 14.9142L8.00003 10.8285L3.91424 14.9142L1.08582 12.0858L5.1716 8.00003Z" />
-                    </svg>
+                    <h1 id="modal-title">NEW BOOK</h1>
+                    <button type="button" class="x-icon exit-modal-icon icon"
+                        aria-label="Close dialog">
+                        <svg viewBox="0 0 16 16"
+                            xmlns="http://www.w3.org/2000/svg" role="img">
+                            <path
+                                d="M5.1716 8.00003L1.08582 3.91424L3.91424 1.08582L8.00003 5.1716L12.0858 1.08582L14.9142 3.91424L10.8285 8.00003L14.9142 12.0858L12.0858 14.9142L8.00003 10.8285L3.91424 14.9142L1.08582 12.0858L5.1716 8.00003Z" />
+                        </svg>
+                    </button>
                 </div>
-                <label>
+
+                <label for="book-title">
                     <p>Title</p>
                     <input type="text" name="book-title" id="book-title"
-                        required>
+                        required aria-required="true">
                 </label>
-                <label>
+
+                <label for="book-author">
                     <p>Author</p>
                     <input type="text" name="book-author" id="book-author"
-                        required>
+                        required aria-required="true">
                 </label>
-                <label>
+
+                <label for="book-pages">
                     <p>Pages</p>
                     <input type="number" name="book-pages" id="book-pages"
-                        required>
+                        min="1" required aria-required="true">
                 </label>
-                <label id="mark-as-read-input-form">
+
+                <label id="mark-as-read-input-form" for="book-read">
                     <p>Mark as Read</p>
                     <input type="checkbox" name="book-read" id="book-read">
                 </label>
+
                 <div id="confirm-button-div">
-                    <button id="confirm-button"
-                        value="Normal Close">CONFIRM</button>
+                    <button id="confirm-button" type="submit">CONFIRM</button>
                 </div>
             </form>
         </dialog>

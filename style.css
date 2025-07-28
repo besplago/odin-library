@@ -74,6 +74,7 @@ h6 {
 @import url(https://db.onlinewebfonts.com/c/c79f8e8cdb2b980de775efd43a34b6a9?family=Artega);
 
 :root {
+  /* Colors */
   --color-logo: #4a4958;
   --color-bg-light: #ebebef;
   --color-accent: #fd8c57;
@@ -81,63 +82,113 @@ h6 {
   --color-button-text: black;
   --color-user-stats: #bbbac5;
   --color-card: #b3b4c0;
+  --color-white: #ffffff;
+  --color-danger: rgb(255, 28, 28);
+  --color-backdrop: rgba(0, 0, 0, 0.6);
 
-  --font-heading: 'Artega';
-  --font-body: 'SeedDemBol W00 Regular';
-  --font-username: 'Syncopate Bold';
-  --font-small-text: 'SeedDemBol W00 Regular';
+  /* Typography */
+  --font-heading: 'Artega', serif;
+  --font-body: 'SeedDemBol W00 Regular', sans-serif;
+  --font-username: 'Syncopate Bold', monospace;
+  --font-small-text: 'SeedDemBol W00 Regular', sans-serif;
 
+  /* Font Sizes */
+  --font-size-xxl: 2rem;
+  --font-size-xl: 1.5rem;
+  --font-size-l: 1.25rem;
+  --font-size-m: 1rem;
   --font-size-s: 0.875rem;
   --font-size-xs: 0.75rem;
   --font-size-xxs: 0.6875rem;
 
-  --spacing-xxs: 0.5rem;
-  --spacing-xs: 1rem;
-  --spacing-s: 1.5rem;
-  --spacing-m: 2rem;
-  --spacing-l: 3rem;
-  --spacing-xl: 4rem;
+  /* Spacing */
+  --spacing-xxs: 0.25rem;
+  --spacing-xs: 0.5rem;
+  --spacing-s: 0.75rem;
+  --spacing-m: 1rem;
+  --spacing-l: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-xxl: 3rem;
+  --spacing-xxxl: 4rem;
 
+  /* Component Sizes */
   --button-width: 11rem;
   --button-height: 2.5rem;
-  --button-radius: 25px;
-  --button-font-size: 0.8em;
+  --button-radius: 1.5625rem;
+  --button-font-size: 0.8rem;
 
   --logo-icon-size: 3rem;
-
-  --username-font-size: 2rem;
+  --username-font-size: var(--font-size-xxl);
 
   --profile-picture-size: 7rem;
-  --profile-picture-border-color: white;
-  --profile-picture-border-size: 0.2rem;
+  --profile-picture-border-size: 0.125rem;
 
-  --new-book-text-color: white;
-
-  --card-content-color: white;
   --card-min-width: 25rem;
   --card-max-height: 12rem;
+  --card-border-radius: var(--button-radius);
 
-  --remove-card-icon-size: 0.6rem;
-  --remove-card-icon-color: white;
-  --remove-card-icon-color-hover: rgb(255, 28, 28);
+  --remove-card-icon-size: 1rem;
+
+  /* Modal */
+  --modal-width: 25rem;
+  --modal-padding: 2.25rem;
+  --modal-inner-padding: 1.625rem;
+  --input-padding: 0.625rem;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-medium: 0.3s ease;
+
+  /* Z-index */
+  --z-modal: 1000;
+  --z-backdrop: 999;
 }
 
-h1 {
-  font-family: var(--font-heading);
-  color: var(--color-logo);
-}
-
+/* Base Styles */
 body {
+  font-family: var(--font-body);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-m);
-  height: 100vh;
-  padding: var(--spacing-l);
+  gap: var(--spacing-xl);
+  min-height: 100vh;
+  padding: var(--spacing-xxl);
   background: linear-gradient(transparent, var(--color-gradient-overlay)),
     var(--color-bg-light);
 }
 
+/* Typography */
+h1 {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-logo);
+  font-weight: normal;
+}
+
+h2 {
+  font-family: var(--font-username);
+  font-size: var(--username-font-size);
+  font-weight: normal;
+}
+
+h3 {
+  font-family: var(--font-username);
+  font-size: var(--font-size-s);
+  font-weight: normal;
+}
+
+h4 {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+}
+
+p {
+  font-family: var(--font-small-text);
+  font-size: var(--font-size-xxs);
+}
+
+/* Interactive Elements */
 button {
   width: var(--button-width);
   height: var(--button-height);
@@ -146,42 +197,56 @@ button {
   font-family: var(--font-body);
   font-size: var(--button-font-size);
   color: var(--color-button-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: bold;
 }
 
 button:hover {
-  scale: 1.04;
+  transform: scale(1.04);
   opacity: 0.8;
 }
 
-.x-icon {
+button:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Icons */
+.icon {
   flex-shrink: 0;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.x-icon {
   width: var(--remove-card-icon-size);
   height: var(--remove-card-icon-size);
 }
 
 .x-icon:hover {
-  scale: 1.5;
+  transform: scale(1.2);
   opacity: 0.8;
-  fill: var(--remove-card-icon-color-hover);
+  fill: var(--color-danger);
+  cursor: pointer;
 }
 
-p {
-  font-family: var(--font-small-text);
+.x-icon:focus {
+  outline: 1px solid var(--color-white);
+  outline-offset: 2px;
 }
 
-#new-book {
-  align-self: flex-end;
-  color: var(--new-book-text-color);
-  background: var(--color-accent)
-    linear-gradient(90deg, transparent, var(--color-gradient-overlay));
-}
-
+/* Layout Components */
 #logo {
-  justify-self: center;
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-xl);
+  gap: var(--spacing-m);
+  margin-bottom: var(--spacing-xxxl);
+  align-self: center;
 }
 
 #logo-icon {
@@ -193,12 +258,15 @@ p {
 #top-row {
   display: flex;
   width: 100%;
+  gap: var(--spacing-m);
   justify-content: space-between;
 }
 
 #profile {
   display: flex;
-  gap: var(--spacing-xs);
+  width: 100%;
+  gap: var(--spacing-m);
+  align-items: flex-end;
 }
 
 #profile-picture {
@@ -206,36 +274,45 @@ p {
   height: var(--profile-picture-size);
   aspect-ratio: 1/1;
   object-fit: cover;
-  border: solid var(--profile-picture-border-color)
-    var(--profile-picture-border-size);
-  border-radius: 100%;
+  border: solid var(--color-white) var(--profile-picture-border-size);
+  border-radius: 50%;
 }
 
 #user-info {
-  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
 }
 
 #user-name {
-  font-family: var(--font-username);
-  font-size: var(--username-font-size);
+  color: var(--color-logo);
 }
 
 #user-stats {
   display: flex;
-  gap: var(--spacing-m);
+  gap: var(--spacing-xl);
 }
 
 #user-stats > p {
   color: var(--color-user-stats);
+  font-size: var(--font-size-xs);
 }
 
+#new-book {
+  align-self: flex-end;
+  color: var(--color-white);
+  background: var(--color-accent)
+    linear-gradient(90deg, transparent, var(--color-gradient-overlay));
+}
+
+/* Card Grid */
 #card-grid {
   width: 100%;
   flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
   grid-auto-rows: minmax(min-content, var(--card-max-height));
-  gap: var(--spacing-m);
+  gap: var(--spacing-l);
   overflow-y: auto;
 }
 
@@ -243,34 +320,28 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: var(--spacing-s) var(--spacing-m);
-  border-radius: 25px;
+  padding: var(--spacing-l) var(--spacing-xl);
+  border-radius: var(--card-border-radius);
   background: var(--color-card)
     radial-gradient(transparent, var(--color-gradient-overlay));
-  color: var(--card-content-color);
+  color: var(--color-white);
+  transition: transform var(--transition-medium);
 }
 
-.card h3 {
-  font-family: var(--font-username);
-  font-size: var(--font-size-s);
-}
-
-.card span {
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-}
-
-.card p {
-  font-size: var(--font-size-xxs);
+.card:hover {
+  transform: translateY(-2px);
 }
 
 .card-top-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-m);
 }
 
 .remove-card-icon {
-  fill: var(--remove-card-icon-color);
+  fill: var(--color-white);
+  margin-left: var(--spacing-m);
 }
 
 .book-stats {
@@ -280,59 +351,143 @@ p {
 
 .read-status {
   display: flex;
-  gap: var(--spacing-xxs);
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
-.read-status > input {
-  border: none;
+.read-status input[type='checkbox'] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
 }
 
-/* fix pixel widths to rems and add as vars below */
-
+/* Modal Styles */
 dialog {
-  justify-self: center;
-  align-self: center;
-  width: 400px;
-  padding: 26px 36px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--modal-width);
+  max-width: calc(100vw - 2rem);
+  padding: var(--modal-inner-padding) var(--modal-padding);
   border: none;
-  border-radius: 25px;
+  border-radius: var(--button-radius);
   background: linear-gradient(transparent, var(--color-gradient-overlay)),
     var(--color-bg-light);
+  z-index: var(--z-modal);
 }
 
-dialog > form {
+dialog::backdrop {
+  background: var(--color-backdrop);
+}
+
+dialog form {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-l);
 }
 
-dialog input {
+#modal-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-m);
+}
+
+dialog label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+dialog input[type='text'],
+dialog input[type='number'] {
   width: 100%;
   border: none;
-  border-radius: 25px;
-  padding: 10px;
   text-align: right;
+  border-radius: var(--button-radius);
+  padding: var(--input-padding);
   font-family: var(--font-body);
+  font-size: var(--font-size-s);
+  transition: box-shadow var(--transition-fast);
+}
+
+dialog input[type='text']:focus,
+dialog input[type='number']:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+#mark-as-read-input-form {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#mark-as-read-input-form input[type='checkbox'] {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
 }
 
 #confirm-button-div {
   align-self: flex-end;
 }
 
-#modal-top-row {
-  display: flex;
-  justify-content: space-between;
+#confirm-button {
+  background: var(--color-accent);
+  color: var(--color-white);
 }
 
-#mark-as-read-input-form {
-  display: flex;
-  justify-content: space-between;
+/* Responsive Design */
+@media (max-width: 768px) {
+  :root {
+    --spacing-xxl: 1.5rem;
+    --card-min-width: 100%;
+    --button-width: 100%;
+  }
+
+  body {
+    padding: var(--spacing-l);
+  }
+
+  #top-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #profile {
+    align-self: center;
+  }
+
+  #new-book {
+    align-self: stretch;
+  }
 }
 
-#mark-as-read-input-form > input {
-  width: auto;
+@media (max-width: 480px) {
+  :root {
+    --profile-picture-size: 5rem;
+    --username-font-size: 1.5rem;
+    --logo-icon-size: 2.5rem;
+  }
+
+  #user-stats {
+    gap: var(--spacing-l);
+  }
 }
 
-::backdrop {
-  background: black;
-  opacity: 0.6;
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.card:focus-within .remove-card-icon {
+  outline: 1px solid var(--color-white);
+  outline-offset: 2px;
 }
