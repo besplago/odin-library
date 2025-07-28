@@ -81,16 +81,27 @@
                     </svg>
                 </div>
                 <label>
-                    Favorite animal:
-                    <select>
-                        <option value="default">Choose…</option>
-                        <option>Brine shrimp</option>
-                        <option>Red panda</option>
-                        <option>Spider monkey</option>
-                    </select>
+                    <p>Title</p>
+                    <input type="text" name="book-title" id="book-title"
+                        required>
+                </label>
+                <label>
+                    <p>Author</p>
+                    <input type="text" name="book-author" id="book-author"
+                        required>
+                </label>
+                <label>
+                    <p>Pages</p>
+                    <input type="number" name="book-pages" id="book-pages"
+                        required>
+                </label>
+                <label id="mark-as-read-input-form">
+                    <p>Mark as Read</p>
+                    <input type="checkbox" name="book-read" id="book-read">
                 </label>
                 <div>
-                    <button id="confirmBtn" value="default">Confirm</button>
+                    <button id="confirm-button"
+                        value="Normal Close">CONFIRM</button>
                 </div>
             </form>
         </dialog>

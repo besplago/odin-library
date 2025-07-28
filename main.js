@@ -116,8 +116,7 @@ function setupEventListeners (library) {
   const newBookButton = document.getElementById('new-book')
   const dialog = document.querySelector('dialog')
   const closeDialogButton = document.querySelector('#modal-top-row svg')
-  const selectEl = dialog.querySelector('select')
-  const confirmBtn = dialog.querySelector('#confirmBtn')
+  const confirmBtn = dialog.querySelector('#confirm-button')
 
   newBookButton.addEventListener('click', () => {
     dialog.showModal()
@@ -128,15 +127,34 @@ function setupEventListeners (library) {
     dialog.close()
   })
 
-  dialog.addEventListener('close', () => {
-    console.log(dialog.returnValue)
-  })
-
-  // Prevent the "confirm" button from the default behavior of submitting the form, and close the
-  // dialog with the `close()` method, which triggers the "close" event.
   confirmBtn.addEventListener('click', e => {
-    e.preventDefault() // We don't want to submit this fake form
-    dialog.close(selectEl.value) // Have to send the select box value here.
+    const form = dialog.querySelector('form')
+
+    if (!form.checkValidity()) {
+      return
+    }
+
+    e.preventDefault()
+
+    const titleInput = dialog.querySelector('#book-title')
+    const authorInput = dialog.querySelector('#book-author')
+    const pagesInput = dialog.querySelector('#book-pages')
+    const readInput = dialog.querySelector('#book-read')
+
+    addBookToLibrary(
+      library,
+      titleInput.value,
+      authorInput.value,
+      parseInt(pagesInput.value),
+      readInput.checked
+    )
+
+    const cardGrid = document.getElementById('card-grid')
+    const newBook = library[library.length - 1]
+    cardGrid.appendChild(createBookCard(newBook))
+
+    form.reset()
+    dialog.close('confirmed')
   })
 
   // Cards

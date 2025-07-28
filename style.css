@@ -283,18 +283,45 @@ p {
   border: none;
 }
 
+/* fix pixel widths to rems and add as vars below */
+
 dialog {
   justify-self: center;
   align-self: center;
+  width: 400px;
+  padding: 26px 36px;
   border: none;
   border-radius: 25px;
   background: linear-gradient(transparent, var(--color-gradient-overlay)),
     var(--color-bg-light);
 }
 
+dialog > form {
+  display: flex;
+  flex-direction: column;
+}
+
+dialog input {
+  width: 100%;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  text-align: right;
+  font-family: var(--font-body);
+}
+
 #modal-top-row {
   display: flex;
   justify-content: space-between;
+}
+
+#mark-as-read-input-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+#mark-as-read-input-form > input {
+  width: auto;
 }
 
 ::backdrop {
