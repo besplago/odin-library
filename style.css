@@ -87,10 +87,10 @@ h6 {
   --color-backdrop: rgba(0, 0, 0, 0.6);
 
   /* Typography */
-  --font-heading: 'Artega', serif;
-  --font-body: 'SeedDemBol W00 Regular', sans-serif;
-  --font-username: 'Syncopate Bold', monospace;
-  --font-small-text: 'SeedDemBol W00 Regular', sans-serif;
+  --font-heading: "Artega", serif;
+  --font-body: "SeedDemBol W00 Regular", sans-serif;
+  --font-username: "Syncopate Bold", monospace;
+  --font-small-text: "SeedDemBol W00 Regular", sans-serif;
 
   /* Font Sizes */
   --font-size-xxl: 2rem;
@@ -356,7 +356,7 @@ button:active {
   gap: var(--spacing-xs);
 }
 
-.read-status input[type='checkbox'] {
+.read-status input[type="checkbox"] {
   width: 1rem;
   height: 1rem;
   cursor: pointer;
@@ -401,8 +401,8 @@ dialog label {
   gap: var(--spacing-xs);
 }
 
-dialog input[type='text'],
-dialog input[type='number'] {
+dialog input[type="text"],
+dialog input[type="number"] {
   width: 100%;
   border: none;
   text-align: right;
@@ -413,8 +413,8 @@ dialog input[type='number'] {
   transition: box-shadow var(--transition-fast);
 }
 
-dialog input[type='text']:focus,
-dialog input[type='number']:focus {
+dialog input[type="text"]:focus,
+dialog input[type="number"]:focus {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-accent);
 }
@@ -425,7 +425,7 @@ dialog input[type='number']:focus {
   align-items: center;
 }
 
-#mark-as-read-input-form input[type='checkbox'] {
+#mark-as-read-input-form input[type="checkbox"] {
   width: 1.25rem;
   height: 1.25rem;
   cursor: pointer;
