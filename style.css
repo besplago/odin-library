@@ -314,6 +314,10 @@ dialog input {
   font-family: var(--font-body);
 }
 
+#confirm-button-div {
+  align-self: flex-end;
+}
+
 #modal-top-row {
   display: flex;
   justify-content: space-between;
