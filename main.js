@@ -29,6 +29,18 @@ function updateReadStatus (library, bookId, readStatus) {
   }
 }
 
+function updateBooksRead (booksRead, totalBooks, pagesRead, totalPages) {
+  const totalBooksElement = document.getElementById('total-books')
+  const booksReadElement = document.getElementById('books-read')
+  const totalPagesElement = document.getElementById('total-pages')
+  const pagesReadElement = document.getElementById('pages-read')
+
+  totalBooksElement.textContent = totalBooks
+  booksReadElement.textContent = booksRead
+  totalPagesElement.textContent = totalPages
+  pagesReadElement.textContent = pagesRead
+}
+
 function createBookCard (book) {
   const card = document.createElement('div')
   card.className = 'card'
