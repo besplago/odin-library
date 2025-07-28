@@ -112,7 +112,7 @@ h6 {
   --spacing-xxxl: 4rem;
 
   /* Component Sizes */
-  --body-width-padding: 15rem;
+  --body-width-padding: 15%;
 
   --button-width: 11rem;
   --button-height: 2.5rem;
