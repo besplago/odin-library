@@ -78,7 +78,7 @@ h6 {
   --color-bg-light: #ebebef;
   --color-accent: #fd8c57;
   --color-gradient-overlay: rgba(0, 0, 0, 0.2);
-  --color-button-text: #ffffff;
+  --color-button-text: black;
   --color-user-stats: #bbbac5;
   --color-card: #b3b4c0;
 
@@ -111,9 +111,12 @@ h6 {
   --profile-picture-border-color: white;
   --profile-picture-border-size: 0.2rem;
 
+  --new-book-text-color: white;
+
   --card-content-color: white;
   --card-min-width: 25rem;
   --card-max-height: 12rem;
+
   --remove-card-icon-size: 0.6rem;
   --remove-card-icon-color: white;
   --remove-card-icon-color-hover: rgb(255, 28, 28);
@@ -167,9 +170,10 @@ p {
 }
 
 #new-book {
+  align-self: flex-end;
+  color: var(--new-book-text-color);
   background: var(--color-accent)
     linear-gradient(90deg, transparent, var(--color-gradient-overlay));
-  align-self: flex-end;
 }
 
 #logo {
