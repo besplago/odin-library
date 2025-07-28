@@ -29,16 +29,19 @@ function updateReadStatus (library, bookId, readStatus) {
   }
 }
 
-function updateBooksRead (booksRead, totalBooks, pagesRead, totalPages) {
-  const totalBooksElement = document.getElementById('total-books')
-  const booksReadElement = document.getElementById('books-read')
-  const totalPagesElement = document.getElementById('total-pages')
-  const pagesReadElement = document.getElementById('pages-read')
+// Not the best solution to stats updating, would prefer to be event based
+function updateStats () {
+  const totalBooks = myLibrary.length
+  const booksRead = myLibrary.filter(book => book.read).length
+  const totalPages = myLibrary.reduce((sum, book) => sum + book.pages, 0)
+  const pagesRead = myLibrary.reduce((sum, book) => {
+    return book.read ? sum + book.pages : sum
+  }, 0)
 
-  totalBooksElement.textContent = totalBooks
-  booksReadElement.textContent = booksRead
-  totalPagesElement.textContent = totalPages
-  pagesReadElement.textContent = pagesRead
+  document.getElementById('books-read').textContent = booksRead
+  document.getElementById('total-books').textContent = totalBooks
+  document.getElementById('pages-read').textContent = pagesRead
+  document.getElementById('total-pages').textContent = totalPages
 }
 
 function createBookCard (book) {
@@ -168,6 +171,7 @@ function setupEventListeners (library) {
     const newBook = library[library.length - 1]
     cardGrid.appendChild(createBookCard(newBook))
 
+    updateStats()
     form.reset()
     dialog.close('confirmed')
   })
@@ -181,6 +185,7 @@ function setupEventListeners (library) {
 
     const card = document.querySelector(`.card[data-id="${bookId}"]`)
     if (card) card.remove()
+    updateStats()
   })
 
   cardGrid.addEventListener('updateReadStatus', e => {
@@ -188,6 +193,7 @@ function setupEventListeners (library) {
     const read = e.detail.read
     const newReadStatus = !read
     updateReadStatus(library, bookId, newReadStatus)
+    updateStats()
   })
 }
 
@@ -257,3 +263,4 @@ addBookToLibrary(
 
 displayBooks(myLibrary)
 setupEventListeners(myLibrary)
+updateStats()
