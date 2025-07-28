@@ -226,6 +226,7 @@ button:active {
 }
 
 .x-icon {
+  flex-shrink: 0;
   width: var(--remove-card-icon-size);
   height: var(--remove-card-icon-size);
 }
