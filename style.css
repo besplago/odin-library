@@ -226,7 +226,6 @@ button:active {
 }
 
 .x-icon {
-  flex-shrink: 0;
   width: var(--remove-card-icon-size);
   height: var(--remove-card-icon-size);
 }
@@ -235,7 +234,6 @@ button:active {
   transform: scale(1.2);
   opacity: 0.8;
   fill: var(--color-danger);
-  cursor: pointer;
 }
 
 .x-icon:focus {

@@ -48,7 +48,7 @@ function createBookCard (book) {
   textContainer.appendChild(author)
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  svg.classList.add('x-icon', 'remove-card-icon')
+  svg.classList.add('icon', 'x-icon', 'remove-card-icon')
   svg.setAttribute('viewBox', '0 0 16 16')
   svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
 
