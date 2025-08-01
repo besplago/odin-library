@@ -168,21 +168,6 @@ class Renderer {
   }
 }
 
-// Not the best solution to stats updating, would prefer to be event based
-function updateStats() {
-  const totalBooks = library.length;
-  const booksRead = library.filter((book) => book.read).length;
-  const totalPages = library.reduce((sum, book) => sum + book.pages, 0);
-  const pagesRead = library.reduce((sum, book) => {
-    return book.read ? sum + book.pages : sum;
-  }, 0);
-
-  document.getElementById("books-read").textContent = booksRead;
-  document.getElementById("total-books").textContent = totalBooks;
-  document.getElementById("pages-read").textContent = pagesRead;
-  document.getElementById("total-pages").textContent = totalPages;
-}
-
 function setupEventListeners(library) {
   // Dialog
   const dialog = document.querySelector("dialog");
