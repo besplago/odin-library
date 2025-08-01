@@ -222,7 +222,6 @@ class LibraryController {
       this.view.updateStats(this.model.getStats());
     });
 
-    // Initial load
     this.loadSampleData();
   }
 
