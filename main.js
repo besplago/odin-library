@@ -1,13 +1,3 @@
-class Book {
-  constructor(title, author, pages, read) {
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-  }
-}
-
 class Observable {
   constructor() {
     this.listeners = {};
@@ -22,6 +12,16 @@ class Observable {
     if (this.listeners[event]) {
       this.listeners[event].forEach((cb) => cb(...args));
     }
+  }
+}
+
+class Book {
+  constructor(title, author, pages, read) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
   }
 }
 
