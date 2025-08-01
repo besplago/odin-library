@@ -340,6 +340,41 @@ class LibraryController {
         true
       ),
       new Book("The GOAT Debate: Why Bron > MJ", "King James Press", 311, true),
+      new Book(
+        "Free Throw Psychology: Swish or Miss?",
+        "Dr. Net Shrinker",
+        220,
+        true
+      ),
+      new Book("The Art of the Triple Double", "Russell Westbrook", 350, false),
+      new Book(
+        "Beyond the Arc: A Three-Point Revolution",
+        "Steph Curry",
+        280,
+        true
+      ),
+      new Book("The Zen of Basketball", "Phil Jackson", 320, true),
+      new Book("How to Block Like a Legend", "Dikembe Mutombo", 200, false),
+      new Book(
+        "Pass First: The Point Guard's Manifesto",
+        "Magic Johnson",
+        300,
+        true
+      ),
+      new Book(
+        "Slam Dunk Science: The Physics of Flight",
+        "Dr. Gravity",
+        265,
+        false
+      ),
+      new Book("The Mamba Mentality: How I Work", "Kobe Bryant", 400, true),
+      new Book("Recovery: Ice Baths and Smoothies", "Dr. Health", 230, true),
+      new Book(
+        "The Sixth Man: Thriving Off the Bench",
+        "Lou Williams",
+        275,
+        false
+      ),
     ];
 
     sampleBooks.forEach((book) => this.model.addBook(book));
