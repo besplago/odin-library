@@ -283,4 +283,3 @@ library.addBook(
 );
 
 setupEventListeners(library);
-updateStats();
