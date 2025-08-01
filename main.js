@@ -75,6 +75,8 @@ class LibraryView {
       pagesRead: document.getElementById("pages-read"),
       totalPages: document.getElementById("total-pages"),
     };
+
+    this.renderedBooks = new Map();
   }
 
   bindAddBook(handler) {
@@ -122,16 +124,81 @@ class LibraryView {
   }
 
   renderBooks(books) {
-    this.cardGrid.innerHTML = "";
+    const currentBookIds = new Set(books.map((book) => book.id));
+    const renderedBookIds = new Set(this.renderedBooks.keys());
+
+    for (const bookId of renderedBookIds) {
+      if (!currentBookIds.has(bookId)) {
+        this.removeBookCard(bookId);
+      }
+    }
+
     books.forEach((book) => {
-      this.cardGrid.appendChild(this.createBookCard(book));
+      const existingBook = this.renderedBooks.get(book.id);
+
+      if (!existingBook) {
+        this.addBookCard(book);
+      } else if (this.hasBookChanged(existingBook, book)) {
+        this.updateBookCard(book);
+      }
     });
+  }
+
+  hasBookChanged(oldBook, newBook) {
+    return (
+      oldBook.title !== newBook.title ||
+      oldBook.author !== newBook.author ||
+      oldBook.pages !== newBook.pages ||
+      oldBook.read !== newBook.read
+    );
+  }
+
+  addBookCard(book) {
+    const card = this.createBookCard(book);
+    this.cardGrid.appendChild(card);
+    this.renderedBooks.set(book.id, { ...book });
+  }
+
+  removeBookCard(bookId) {
+    const card = this.cardGrid.querySelector(`[data-id="${bookId}"]`);
+    if (card) {
+      card.remove();
+      this.renderedBooks.delete(bookId);
+    }
+  }
+
+  updateBookCard(book) {
+    const card = this.cardGrid.querySelector(`[data-id="${book.id}"]`);
+    if (!card) return;
+
+    const existingBook = this.renderedBooks.get(book.id);
+
+    if (existingBook.title !== book.title) {
+      const titleElement = card.querySelector("h3");
+      titleElement.textContent = book.title.toUpperCase();
+    }
+
+    if (existingBook.author !== book.author) {
+      const authorElement = card.querySelector("p");
+      authorElement.textContent = book.author;
+    }
+
+    if (existingBook.pages !== book.pages) {
+      const pagesElement = card.querySelector(".book-stats span");
+      pagesElement.textContent = `${book.pages} PAGES`;
+    }
+
+    if (existingBook.read !== book.read) {
+      const checkbox = card.querySelector('input[type="checkbox"]');
+      checkbox.checked = book.read;
+    }
+
+    this.renderedBooks.set(book.id, { ...book });
   }
 
   createBookCard(book) {
     const card = document.createElement("div");
     card.className = "card";
-
     card.dataset.id = book.id;
 
     const topRow = document.createElement("div");
@@ -161,7 +228,6 @@ class LibraryView {
     );
 
     svg.appendChild(path);
-
     topRow.appendChild(textContainer);
     topRow.appendChild(svg);
 
@@ -188,7 +254,6 @@ class LibraryView {
 
     readStatus.appendChild(label);
     readStatus.appendChild(checkbox);
-
     bookStats.appendChild(pages);
     bookStats.appendChild(readStatus);
 
@@ -200,7 +265,9 @@ class LibraryView {
 
   updateStats(stats) {
     Object.entries(stats).forEach(([key, value]) => {
-      this.statsElements[key].textContent = value;
+      if (this.statsElements[key].textContent !== value.toString()) {
+        this.statsElements[key].textContent = value;
+      }
     });
   }
 }
