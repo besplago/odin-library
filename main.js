@@ -25,37 +25,107 @@ class Book {
   }
 }
 
-class Library extends Observable {
-  constructor(books) {
+class LibraryModel extends Observable {
+  constructor() {
     super();
-    this.books = books;
+    this.books = [];
   }
 
   addBook(book) {
     this.books.push(book);
-    this.emit("libraryUpdated");
+    this.emit("libraryUpdated", this.books);
   }
 
   removeBook(bookId) {
-    const index = books.findIndex((book) => book.id === bookId);
-    if (index !== -1) {
-      this.books.splice(index, 1);
-    }
-    this.emit("libraryUpdated");
+    this.books = this.books.filter((book) => book.id !== bookId);
+    this.emit("libraryUpdated", this.books);
   }
 
   updateReadStatus(bookId, readStatus) {
-    const book = this.books.find((book) => book.id === bookId);
+    const book = this.books.find((b) => b.id === bookId);
     if (book) {
       book.read = readStatus;
+      this.emit("libraryUpdated", this.books);
     }
-    this.emit("libraryUpdated");
+  }
+
+  getStats() {
+    const totalBooks = this.books.length;
+    const booksRead = this.books.filter((book) => book.read).length;
+    const totalPages = this.books.reduce((sum, book) => sum + book.pages, 0);
+    const pagesRead = this.books.reduce(
+      (sum, book) => (book.read ? sum + book.pages : sum),
+      0
+    );
+
+    return { totalBooks, booksRead, totalPages, pagesRead };
   }
 }
 
-class Renderer {
-  constructor(library) {
-    this.library = library;
+class LibraryView {
+  constructor() {
+    this.cardGrid = document.getElementById("card-grid");
+    this.dialog = document.getElementById("new-book-dialog");
+    this.form = this.dialog.querySelector("form");
+    this.newBookButton = document.getElementById("new-book");
+    this.closeDialogButton = this.dialog.querySelector(".exit-modal-icon");
+    this.statsElements = {
+      booksRead: document.getElementById("books-read"),
+      totalBooks: document.getElementById("total-books"),
+      pagesRead: document.getElementById("pages-read"),
+      totalPages: document.getElementById("total-pages"),
+    };
+  }
+
+  bindAddBook(handler) {
+    this.newBookButton.addEventListener("click", () => this.dialog.showModal());
+
+    this.form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (this.form.checkValidity()) {
+        const formData = new FormData(this.form);
+        handler({
+          title: formData.get("book-title"),
+          author: formData.get("book-author"),
+          pages: parseInt(formData.get("book-pages")),
+          read: formData.get("book-read"),
+        });
+        this.form.reset();
+        this.dialog.close();
+      }
+    });
+  }
+
+  bindDialogClose() {
+    this.closeDialogButton.addEventListener("click", () => {
+      this.form.reset();
+      this.dialog.close();
+    });
+  }
+
+  bindRemoveBook(handler) {
+    this.cardGrid.addEventListener("click", (e) => {
+      if (e.target.closest(".remove-button")) {
+        const card = e.target.closest(".card");
+        handler(card.dataset.id);
+      }
+    });
+  }
+
+  bindUpdateReadStatus(handler) {
+    this.cardGrid.addEventListener("change", (e) => {
+      if (e.target.matches('input[type="checkbox"]')) {
+        const card = e.target.closest(".card");
+        handler(card.dataset.id, e.target.checked);
+      }
+    });
+  }
+
+  renderBooks(books) {
+    this.cardGrid.innerHTML = "";
+    books.forEach((book) => {
+      this.cardGrid.appendChild(this.createBookCard(book));
+    });
   }
 
   createBookCard(book) {
@@ -77,7 +147,7 @@ class Renderer {
     textContainer.appendChild(author);
 
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.classList.add("icon", "x-icon", "remove-card-icon");
+    svg.classList.add("icon", "x-icon", "remove-card-icon", "remove-button");
     svg.setAttribute("viewBox", "0 0 16 16");
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
     svg.setAttribute("role", "button");
@@ -91,14 +161,6 @@ class Renderer {
     );
 
     svg.appendChild(path);
-
-    svg.addEventListener("click", () => {
-      const removeEvent = new CustomEvent("removeBook", {
-        bubbles: true,
-        detail: { bookId: book.id },
-      });
-      card.dispatchEvent(removeEvent);
-    });
 
     topRow.appendChild(textContainer);
     topRow.appendChild(svg);
@@ -123,13 +185,6 @@ class Renderer {
     checkbox.type = "checkbox";
     checkbox.name = "read-status";
     checkbox.checked = book.read;
-    checkbox.addEventListener("change", () => {
-      const removeEvent = new CustomEvent("updateReadStatus", {
-        bubbles: true,
-        detail: { bookId: book.id, read: book.read },
-      });
-      card.dispatchEvent(removeEvent);
-    });
 
     readStatus.appendChild(label);
     readStatus.appendChild(checkbox);
@@ -143,143 +198,90 @@ class Renderer {
     return card;
   }
 
-  displayBooks() {
-    const cardGrid = document.getElementById("card-grid");
-    this.library.books.forEach((book) => {
-      cardGrid.appendChild(this.createBookCard(book));
+  updateStats(stats) {
+    Object.entries(stats).forEach(([key, value]) => {
+      this.statsElements[key].textContent = value;
     });
   }
+}
 
-  updateStats() {
-    const totalBooks = this.library.books.length;
-    const booksRead = this.library.books.filter((book) => book.read).length;
-    const totalPages = this.library.books.reduce(
-      (sum, book) => sum + book.pages,
-      0
+class LibraryController {
+  constructor(model, view) {
+    this.model = model;
+    this.view = view;
+
+    // Bind view events to model actions
+    this.view.bindAddBook(this.handleAddBook.bind(this));
+    this.view.bindDialogClose();
+    this.view.bindRemoveBook(this.handleRemoveBook.bind(this));
+    this.view.bindUpdateReadStatus(this.handleUpdateReadStatus.bind(this));
+
+    // React to model changes
+    this.model.on("libraryUpdated", (books) => {
+      this.view.renderBooks(books);
+      this.view.updateStats(this.model.getStats());
+    });
+
+    // Initial load
+    this.loadSampleData();
+  }
+
+  handleAddBook(bookData) {
+    const book = new Book(
+      bookData.title,
+      bookData.author,
+      bookData.pages,
+      bookData.read
     );
-    const pagesRead = this.library.books.reduce((sum, book) => {
-      return book.read ? sum + book.pages : sum;
-    }, 0);
+    this.model.addBook(book);
+  }
 
-    document.getElementById("books-read").textContent = booksRead;
-    document.getElementById("total-books").textContent = totalBooks;
-    document.getElementById("pages-read").textContent = pagesRead;
-    document.getElementById("total-pages").textContent = totalPages;
+  handleRemoveBook(bookId) {
+    this.model.removeBook(bookId);
+  }
+
+  handleUpdateReadStatus(bookId, readStatus) {
+    this.model.updateReadStatus(bookId, readStatus);
+  }
+
+  loadSampleData() {
+    const sampleBooks = [
+      new Book("Vertical Leap for Dummies", "Dr. Air Jordan", 290, true),
+      new Book(
+        "Crying in My Championship Champagne",
+        'Michael "Air Soreness" Jordan',
+        412,
+        false
+      ),
+      new Book("I Promise School Lunch Recipes", "Chef LeBron", 310, true),
+      new Book(
+        "Space Jam 3: Revenge of the Monstars",
+        "Warner Bros. Ghostwriter",
+        476,
+        true
+      ),
+      new Book(
+        "How to Dunk on Feelings: Emotional Alley-Oops",
+        "Dr. Phil Jackson",
+        304,
+        false
+      ),
+      new Book("The Taco Tuesday Manifesto", 'Taco "Tuesday" James', 271, true),
+      new Book(
+        "Hairline Management for Champions",
+        "Dr. Transplant",
+        255,
+        true
+      ),
+      new Book("The GOAT Debate: Why Bron > MJ", "King James Press", 311, true),
+    ];
+
+    sampleBooks.forEach((book) => this.model.addBook(book));
   }
 }
 
-function setupEventListeners(library) {
-  // Dialog
-  const dialog = document.querySelector("dialog");
-  const newBookButton = document.getElementById("new-book");
-  const closeDialogButton = document.querySelector("#modal-top-row button");
-  const confirmBtn = dialog.querySelector("#confirm-button");
-
-  newBookButton.addEventListener("click", () => {
-    dialog.showModal();
-  });
-
-  closeDialogButton.addEventListener("click", () => {
-    dialog.returnValue = "cancel";
-    dialog.close();
-  });
-
-  confirmBtn.addEventListener("click", (e) => {
-    const form = dialog.querySelector("form");
-
-    if (!form.checkValidity()) {
-      return;
-    }
-
-    e.preventDefault();
-
-    const titleInput = dialog.querySelector("#book-title");
-    const authorInput = dialog.querySelector("#book-author");
-    const pagesInput = dialog.querySelector("#book-pages");
-    const readInput = dialog.querySelector("#book-read");
-
-    addBookToLibrary(
-      library,
-      titleInput.value,
-      authorInput.value,
-      parseInt(pagesInput.value),
-      readInput.checked
-    );
-
-    const cardGrid = document.getElementById("card-grid");
-    const newBook = library[library.length - 1];
-    cardGrid.appendChild(createBookCard(newBook));
-
-    form.reset();
-    dialog.close("confirmed");
-  });
-
-  // Cards
-  const cardGrid = document.getElementById("card-grid");
-
-  cardGrid.addEventListener("removeBook", (e) => {
-    const bookId = e.detail.bookId;
-    removeBookFromLibrary(library, bookId);
-
-    const card = document.querySelector(`.card[data-id="${bookId}"]`);
-    if (card) card.remove();
-  });
-
-  cardGrid.addEventListener("updateReadStatus", (e) => {
-    const bookId = e.detail.bookId;
-    const read = e.detail.read;
-    const newReadStatus = !read;
-    updateReadStatus(library, bookId, newReadStatus);
-  });
-}
-
-const library = new Library([]);
-const renderer = new Renderer(library);
-library.on("libraryUpdated", () => {
-  renderer.displayBooks();
+document.addEventListener("DOMContentLoaded", () => {
+  const model = new LibraryModel();
+  const view = new LibraryView();
+  new LibraryController(model, view);
 });
-library.on("libraryUpdated", () => {
-  renderer.updateStats();
-});
-
-library.addBook(
-  new Book("Vertical Leap for Dummies", "Dr. Air Jordan", 290, true)
-);
-library.addBook(
-  new Book(
-    "Crying in My Championship Champagne",
-    'Michael "Air Soreness" Jordan',
-    412,
-    false
-  )
-);
-library.addBook(
-  new Book("I Promise School Lunch Recipes", "Chef LeBron", 310, true)
-);
-library.addBook(
-  new Book(
-    "Space Jam 3: Revenge of the Monstars",
-    "Warner Bros. Ghostwriter",
-    476,
-    true
-  )
-);
-library.addBook(
-  new Book(
-    "How to Dunk on Feelings: Emotional Alley-Oops",
-    "Dr. Phil Jackson",
-    304,
-    false
-  )
-);
-library.addBook(
-  new Book("The Taco Tuesday Manifesto", 'Taco "Tuesday" James', 271, true)
-);
-library.addBook(
-  new Book("Hairline Management for Champions", "Dr. Transplant", 255, true)
-);
-library.addBook(
-  new Book("The GOAT Debate: Why Bron > MJ", "King James Press", 311, true)
-);
-
-setupEventListeners(library);
