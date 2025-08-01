@@ -1,5 +1,3 @@
-const myLibrary = [];
-
 class Book {
   constructor(title, author, pages, read) {
     this.id = crypto.randomUUID();
@@ -10,22 +8,27 @@ class Book {
   }
 }
 
-function addBookToLibrary(library, title, author, pages, read) {
-  const newBook = new Book(title, author, pages, read);
-  library.push(newBook);
-}
-
-function removeBookFromLibrary(library, bookId) {
-  const index = library.findIndex((book) => book.id === bookId);
-  if (index !== -1) {
-    library.splice(index, 1);
+class Library {
+  constructor(books) {
+    this.books = books;
   }
-}
 
-function updateReadStatus(library, bookId, readStatus) {
-  const book = library.find((book) => book.id === bookId);
-  if (book) {
-    book.read = readStatus;
+  addBook(book) {
+    this.books.push(book);
+  }
+
+  removeBook(bookId) {
+    const index = books.findIndex((book) => book.id === bookId);
+    if (index !== -1) {
+      this.books.splice(index, 1);
+    }
+  }
+
+  updateReadStatus(bookId, readStatus) {
+    const book = this.books.find((book) => book.id === bookId);
+    if (book) {
+      book.read = readStatus;
+    }
   }
 }
 
@@ -204,62 +207,49 @@ function displayBooks(library) {
   });
 }
 
-addBookToLibrary(
-  myLibrary,
-  "Vertical Leap for Dummies",
-  "Dr. Air Jordan",
-  290,
-  true
+const myLibrary = new Library([]);
+
+myLibrary.addBook(
+  new Book("Vertical Leap for Dummies", "Dr. Air Jordan", 290, true)
 );
-addBookToLibrary(
-  myLibrary,
-  "Crying in My Championship Champagne",
-  'Michael "Air Soreness" Jordan',
-  412,
-  false
+myLibrary.addBook(
+  new Book(
+    "Crying in My Championship Champagne",
+    'Michael "Air Soreness" Jordan',
+    412,
+    false
+  )
 );
-addBookToLibrary(
-  myLibrary,
-  "I Promise School Lunch Recipes",
-  "Chef LeBron",
-  310,
-  true
+myLibrary.addBook(
+  new Book("I Promise School Lunch Recipes", "Chef LeBron", 310, true)
 );
-addBookToLibrary(
-  myLibrary,
-  "Space Jam 3: Revenge of the Monstars",
-  "Warner Bros. Ghostwriter",
-  476,
-  true
+myLibrary.addBook(
+  new Book(
+    "Space Jam 3: Revenge of the Monstars",
+    "Warner Bros. Ghostwriter",
+    476,
+    true
+  )
 );
-addBookToLibrary(
-  myLibrary,
-  "How to Dunk on Feelings: Emotional Alley-Oops",
-  "Dr. Phil Jackson",
-  304,
-  false
+myLibrary.addBook(
+  new Book(
+    "How to Dunk on Feelings: Emotional Alley-Oops",
+    "Dr. Phil Jackson",
+    304,
+    false
+  )
 );
-addBookToLibrary(
-  myLibrary,
-  "The Taco Tuesday Manifesto",
-  'Taco "Tuesday" James',
-  271,
-  true
+myLibrary.addBook(
+  new Book("The Taco Tuesday Manifesto", 'Taco "Tuesday" James', 271, true)
 );
-addBookToLibrary(
-  myLibrary,
-  "Hairline Management for Champions",
-  "Dr. Transplant",
-  255,
-  true
+myLibrary.addBook(
+  new Book("Hairline Management for Champions", "Dr. Transplant", 255, true)
 );
-addBookToLibrary(
-  myLibrary,
-  "The GOAT Debate: Why Bron > MJ",
-  "King James Press",
-  311,
-  true
+myLibrary.addBook(
+  new Book("The GOAT Debate: Why Bron > MJ", "King James Press", 311, true)
 );
+
+console.log(myLibrary.books);
 
 displayBooks(myLibrary);
 setupEventListeners(myLibrary);
