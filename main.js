@@ -153,10 +153,10 @@ class Renderer {
 
 // Not the best solution to stats updating, would prefer to be event based
 function updateStats() {
-  const totalBooks = myLibrary.length;
-  const booksRead = myLibrary.filter((book) => book.read).length;
-  const totalPages = myLibrary.reduce((sum, book) => sum + book.pages, 0);
-  const pagesRead = myLibrary.reduce((sum, book) => {
+  const totalBooks = library.length;
+  const booksRead = library.filter((book) => book.read).length;
+  const totalPages = library.reduce((sum, book) => sum + book.pages, 0);
+  const pagesRead = library.reduce((sum, book) => {
     return book.read ? sum + book.pages : sum;
   }, 0);
 
@@ -234,16 +234,16 @@ function setupEventListeners(library) {
   });
 }
 
-const myLibrary = new Library([]);
-const renderer = new Renderer(myLibrary);
-myLibrary.on("libraryUpdated", () => {
+const library = new Library([]);
+const renderer = new Renderer(library);
+library.on("libraryUpdated", () => {
   renderer.displayBooks();
 });
 
-myLibrary.addBook(
+library.addBook(
   new Book("Vertical Leap for Dummies", "Dr. Air Jordan", 290, true)
 );
-myLibrary.addBook(
+library.addBook(
   new Book(
     "Crying in My Championship Champagne",
     'Michael "Air Soreness" Jordan',
@@ -251,10 +251,10 @@ myLibrary.addBook(
     false
   )
 );
-myLibrary.addBook(
+library.addBook(
   new Book("I Promise School Lunch Recipes", "Chef LeBron", 310, true)
 );
-myLibrary.addBook(
+library.addBook(
   new Book(
     "Space Jam 3: Revenge of the Monstars",
     "Warner Bros. Ghostwriter",
@@ -262,7 +262,7 @@ myLibrary.addBook(
     true
   )
 );
-myLibrary.addBook(
+library.addBook(
   new Book(
     "How to Dunk on Feelings: Emotional Alley-Oops",
     "Dr. Phil Jackson",
@@ -270,15 +270,15 @@ myLibrary.addBook(
     false
   )
 );
-myLibrary.addBook(
+library.addBook(
   new Book("The Taco Tuesday Manifesto", 'Taco "Tuesday" James', 271, true)
 );
-myLibrary.addBook(
+library.addBook(
   new Book("Hairline Management for Champions", "Dr. Transplant", 255, true)
 );
-myLibrary.addBook(
+library.addBook(
   new Book("The GOAT Debate: Why Bron > MJ", "King James Press", 311, true)
 );
 
-setupEventListeners(myLibrary);
+setupEventListeners(library);
 updateStats();
