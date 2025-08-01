@@ -235,9 +235,9 @@ function setupEventListeners(library) {
 }
 
 const myLibrary = new Library([]);
-const displayer = new Renderer(myLibrary);
+const renderer = new Renderer(myLibrary);
 myLibrary.on("libraryUpdated", () => {
-  displayer.displayBooks();
+  renderer.displayBooks();
 });
 
 myLibrary.addBook(
