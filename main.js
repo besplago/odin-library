@@ -149,6 +149,23 @@ class Renderer {
       cardGrid.appendChild(this.createBookCard(book));
     });
   }
+
+  updateStats() {
+    const totalBooks = this.library.books.length;
+    const booksRead = this.library.books.filter((book) => book.read).length;
+    const totalPages = this.library.books.reduce(
+      (sum, book) => sum + book.pages,
+      0
+    );
+    const pagesRead = this.library.books.reduce((sum, book) => {
+      return book.read ? sum + book.pages : sum;
+    }, 0);
+
+    document.getElementById("books-read").textContent = booksRead;
+    document.getElementById("total-books").textContent = totalBooks;
+    document.getElementById("pages-read").textContent = pagesRead;
+    document.getElementById("total-pages").textContent = totalPages;
+  }
 }
 
 // Not the best solution to stats updating, would prefer to be event based
@@ -208,7 +225,6 @@ function setupEventListeners(library) {
     const newBook = library[library.length - 1];
     cardGrid.appendChild(createBookCard(newBook));
 
-    updateStats();
     form.reset();
     dialog.close("confirmed");
   });
@@ -222,7 +238,6 @@ function setupEventListeners(library) {
 
     const card = document.querySelector(`.card[data-id="${bookId}"]`);
     if (card) card.remove();
-    updateStats();
   });
 
   cardGrid.addEventListener("updateReadStatus", (e) => {
@@ -230,7 +245,6 @@ function setupEventListeners(library) {
     const read = e.detail.read;
     const newReadStatus = !read;
     updateReadStatus(library, bookId, newReadStatus);
-    updateStats();
   });
 }
 
@@ -238,6 +252,9 @@ const library = new Library([]);
 const renderer = new Renderer(library);
 library.on("libraryUpdated", () => {
   renderer.displayBooks();
+});
+library.on("libraryUpdated", () => {
+  renderer.updateStats();
 });
 
 library.addBook(
